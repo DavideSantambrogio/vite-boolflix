@@ -1,5 +1,5 @@
 <script >
-  import AppHeader from './components/AppHeader.vue';
+  import AppHeader from './components/appHeader.vue';
   import axios from 'axios';
   import { store } from "./store";
   import AppMain from './components/appMain.vue';
