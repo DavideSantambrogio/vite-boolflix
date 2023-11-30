@@ -22,6 +22,9 @@ export default {
     voteAverage() {
       return this.filmObj ? this.filmObj.vote_average : this.seriesObj.vote_average;
     },
+    roundedRating() {
+      return Math.ceil(this.filmObj ? this.filmObj.vote_average / 2 : this.seriesObj.vote_average / 2);
+    },
   },
   methods: {
     getFlagUrl(language) {
@@ -47,13 +50,17 @@ export default {
 
 <template>
     <div>
-        <img v-if="getPosterUrl(filmObj)" :src="getPosterUrl(filmObj)" alt="Poster"/>
-        <img v-if="getPosterUrl(seriesObj)" :src="getPosterUrl(seriesObj)" alt="Poster"/>      
-        <h2 >{{ title }}</h2>
-        <h3>{{ originalTitle }}</h3>        
-        <img v-if="getFlagUrl(languageCode)" :src="getFlagUrl(languageCode)" alt="Language Flag"  />
-        <p v-else-if="languageCode">{{ languageCode }}</p>
-        <p>{{ voteAverage }}</p>
+      <img v-if="getPosterUrl(filmObj)" :src="getPosterUrl(filmObj)" alt="Poster"/>
+      <img v-if="getPosterUrl(seriesObj)" :src="getPosterUrl(seriesObj)" alt="Poster"/>      
+      <h2 >{{ title }}</h2>
+      <h3>{{ originalTitle }}</h3>        
+      <img v-if="getFlagUrl(languageCode)" :src="getFlagUrl(languageCode)" alt="Language Flag"  />
+      <p v-else-if="languageCode">{{ languageCode }}</p>
+      <div>
+        <span v-for="i in 5">
+          <i :class="{'fas fa-star': i <= roundedRating, 'far fa-star': i > roundedRating}"></i>
+        </span>
+      </div>
     </div>
 </template>
 
