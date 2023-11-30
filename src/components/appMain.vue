@@ -1,6 +1,10 @@
 <script>
 import { store } from "../store";
+import AppCard from "./AppCard.vue";
 export default {
+    components:{
+        AppCard
+    },
     data() {
         return {
             store
@@ -11,11 +15,8 @@ export default {
 
 <template>
     <section>
-        <div v-for="film in store.filmsList">
-            <h2>{{ film.title }}</h2>
-            <h3>{{ film.original_title }}</h3>
-            <p>{{ film.original_language }}</p>
-            <p>{{ film.vote_average }}</p>
+        <div  v-for="film in store.filmsList">
+            <AppCard :filmObj="film"/>
         </div>
     </section>
   

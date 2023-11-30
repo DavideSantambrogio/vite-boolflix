@@ -13,7 +13,7 @@ export default {
 <template>
     <div>
         <label for="search">cerca</label>
-        <input type="text" id="search" v-model="store.searchText">
+        <input @keyup.enter="$emit('film-search')"  type="text" id="search" v-model="store.searchText">
         <button @click="$emit('film-search')">cerca</button>
     </div>
   
