@@ -31,6 +31,15 @@ export default {
         return "";
       }
     },
+    getPosterUrl(obj) {
+      if (obj && obj.poster_path) {
+        const baseUrl = "https://image.tmdb.org/t/p/";
+        return `${baseUrl}w342/${obj.poster_path}`;
+      } else {
+        return "";
+      }
+    },
+    
   },
 };
   
@@ -38,11 +47,13 @@ export default {
 
 <template>
     <div>
-        <h2 v-if="title">{{ title }}</h2>
-        <h3 v-if="originalTitle">{{ originalTitle }}</h3>
-        <img v-if="languageCode && getFlagUrl(languageCode)" :src="getFlagUrl(languageCode)" alt="Language Flag" class="language-flag" />
+        <img v-if="getPosterUrl(filmObj)" :src="getPosterUrl(filmObj)" alt="Poster"/>
+        <img v-if="getPosterUrl(seriesObj)" :src="getPosterUrl(seriesObj)" alt="Poster"/>      
+        <h2 >{{ title }}</h2>
+        <h3>{{ originalTitle }}</h3>        
+        <img v-if="getFlagUrl(languageCode)" :src="getFlagUrl(languageCode)" alt="Language Flag"  />
         <p v-else-if="languageCode">{{ languageCode }}</p>
-        <p v-if="voteAverage">{{ voteAverage }}</p>
+        <p>{{ voteAverage }}</p>
     </div>
 </template>
 
