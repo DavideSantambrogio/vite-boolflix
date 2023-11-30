@@ -18,6 +18,9 @@ export default {
         <div  v-for="film in store.filmsList">
             <AppCard :filmObj="film"/>
         </div>
+        <div  v-for="series in store.seriesList">
+            <AppCard :seriesObj="series"/>
+        </div>
     </section>
   
 </template>

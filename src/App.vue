@@ -25,6 +25,17 @@
         .then((resp) => {
           this.store.filmsList = resp.data.results;
         });
+
+        axios
+        .get(`${this.store.apiBase}/search/tv`, {
+          params:{
+            api_key: this.store.apiKey,
+            query: this.store.searchText
+          },          
+        })
+        .then((resp) => {
+          this.store.seriesList = resp.data.results;
+        });
       },
     },
     
