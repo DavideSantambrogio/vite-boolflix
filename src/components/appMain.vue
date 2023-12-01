@@ -17,10 +17,13 @@ export default {
     <main>
         <section class="my-container card-container">
             <div class="row">
-                <div class="col" v-for="film in store.filmsList">
+                <h2>Film</h2>
+                <div class="col-3" v-for="film in store.filmsList">
                     <AppCard :filmObj="film"/>
                 </div>
-                <div class="col" v-for="series in store.seriesList">
+                <h2>Serie tv</h2>
+                <div class="col-3" v-for="series in store.seriesList">
+                    
                     <AppCard :seriesObj="series"/>
                 </div>
             </div>

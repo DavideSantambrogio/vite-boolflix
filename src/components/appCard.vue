@@ -25,6 +25,10 @@ export default {
     roundedRating() {
       return Math.ceil(this.filmObj ? this.filmObj.vote_average / 2 : this.seriesObj.vote_average / 2);
     },
+    overview() {
+      return this.filmObj ? this.filmObj.overview : this.seriesObj.overview;
+
+    }
   },
   methods: {
     getFlagUrl(language) {
@@ -49,24 +53,53 @@ export default {
 </script>
 
 <template>
-    <div>
-      <img :src="getPosterUrl(filmObj || seriesObj)" alt="Poster"/>     
-      <h2 >{{ title }}</h2>
-      <h3>{{ originalTitle }}</h3>  
-      <div class="flag">
-        <img v-if="getFlagUrl(languageCode)" :src="getFlagUrl(languageCode)" alt="Language Flag"  />
-        <p v-else="languageCode">{{ languageCode }}</p>
-      </div>       
-      <div>
-        <span v-for="i in 5" >
-          <i v-if="i <= roundedRating" class="fas fa-star"></i>
-          <i v-else class="far fa-star"></i>
-        </span>
+    <div class="card mt-4 text-center">
+      <img class="poster" :src="getPosterUrl(filmObj || seriesObj)" alt="Poster"/>     
+      <div class="card-txt p-2">
+        <h6 ><strong>Titolo: </strong>{{ title }}</h6>
+        <h6><strong>Titolo Originale: </strong>{{ originalTitle }}</h6>  
+        <div class="flag">
+          <img v-if="getFlagUrl(languageCode)" :src="getFlagUrl(languageCode)" alt="Language Flag"  />
+          <p v-else="languageCode">{{ languageCode }}</p>
+        </div>
+        <p ><strong>Overview: </strong>{{ overview }}</p>       
+        <div>
+          <span v-for="i in 5" >
+            <i v-if="i <= roundedRating" class="fas fa-star"></i>
+            <i v-else class="far fa-star"></i>
+          </span>
+        </div>
       </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
+.flag img {
+  width: 50px;
+}
+.poster {
+  position: relative;
+  object-fit: cover;
+  object-position: top;
+  aspect-ratio: 9/16;
+}
+.card-txt {
+  background-color: black;
+  position: absolute;
+  display: none;
+  color: white;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto; 
+}
+.card-txt::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
+.poster:hover + .card-txt, .card-txt:hover {
+  display: block;
+}
 
 
 </style>
+
