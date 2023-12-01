@@ -1,6 +1,7 @@
 <script>
 import { store } from "../store";
 import AppCard from "./appCard.vue";
+import axios from 'axios';
 export default {
     components:{
         AppCard
@@ -10,6 +11,30 @@ export default {
             store
         }
     },
+    mounted() {
+    this.searchForTrending();
+    },
+    methods: {
+    searchForTrending() {
+      axios
+        .all([
+          axios.get(`${this.store.apiBase}/trending/movie/week`, {
+            params: {
+              api_key: this.store.apiKey,
+            },
+          }),
+          axios.get(`${this.store.apiBase}/trending/tv/week`, {
+            params: {
+              api_key: this.store.apiKey,
+            },
+          }),
+        ])
+        .then(axios.spread((trendingMovies, trendingSeries) => {
+          this.store.filmsList = trendingMovies.data.results;
+          this.store.seriesList = trendingSeries.data.results;
+        }))        
+    },
+  },
 }
 </script>
 
