@@ -46,11 +46,19 @@
 </script>
 
 <template>
-<AppHeader @film-search="search"/>
-<AppMain/>
+  <div class="wrapper">
+    <AppHeader @film-search="search"/>
+    <AppMain/>
+  </div>
+  
 </template>
 
 <style lang="scss">
 @use "./style/general.scss";
 @import "@fortawesome/fontawesome-free/css/all.css"; 
+
+.wrapper{
+  width: 100%;
+  height: 100vh;
+}
 </style>
