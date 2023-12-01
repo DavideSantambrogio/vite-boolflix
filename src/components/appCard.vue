@@ -39,7 +39,7 @@ export default {
         const baseUrl = "https://image.tmdb.org/t/p/";
         return `${baseUrl}w342/${obj.poster_path}`;
       } else {
-        return "";
+        return "src/assets/img/image-not-found.jpg";
       }
     },
     
@@ -50,15 +50,17 @@ export default {
 
 <template>
     <div>
-      <img v-if="getPosterUrl(filmObj)" :src="getPosterUrl(filmObj)" alt="Poster"/>
-      <img v-if="getPosterUrl(seriesObj)" :src="getPosterUrl(seriesObj)" alt="Poster"/>      
+      <img :src="getPosterUrl(filmObj || seriesObj)" alt="Poster"/>     
       <h2 >{{ title }}</h2>
-      <h3>{{ originalTitle }}</h3>        
-      <img v-if="getFlagUrl(languageCode)" :src="getFlagUrl(languageCode)" alt="Language Flag"  />
-      <p v-else-if="languageCode">{{ languageCode }}</p>
+      <h3>{{ originalTitle }}</h3>  
+      <div class="flag">
+        <img v-if="getFlagUrl(languageCode)" :src="getFlagUrl(languageCode)" alt="Language Flag"  />
+        <p v-else="languageCode">{{ languageCode }}</p>
+      </div>       
       <div>
-        <span v-for="i in 5">
-          <i :class="{'fas fa-star': i <= roundedRating, 'far fa-star': i > roundedRating}"></i>
+        <span v-for="i in 5" >
+          <i v-if="i <= roundedRating" class="fas fa-star"></i>
+          <i v-else class="far fa-star"></i>
         </span>
       </div>
     </div>
